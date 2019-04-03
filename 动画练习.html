@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Page Title</title>
+    <style>
+        body {
+            text-align: center;
+            width: 100%;
+            height: 800px;
+            padding: 0;
+            margin: 0;
+        }
+
+        #box {
+            margin: 0 auto;
+            background: green;
+            width: 100%;
+            height: 280px;
+            border: 1px solid red;
+            transition: 1s;
+        }
+
+        #box1 {
+            float: left;
+            margin: 10px;
+            width: 200px;
+            height: 200px;
+            background: orange;
+            transition: 1s;
+        }
+
+        #box2 {
+            width: 300px;
+            height: 200px;
+            background: olive;
+            transition: 1s;
+        }
+    </style>
+</head>
+
+<body id="bd">
+    <div id="box">box
+        <div id="box1">box1</div>
+        <div id="box2">box2</div>
+    </div>
+    <script>
+        //用动画顺序比较同步代码和异步代码
+        obd = document.getElementById("bd");
+        obox = document.getElementById("box");
+        obox1 = document.getElementById("box1");
+        obox2 = document.getElementById("box2");
+
+        function pro() {
+            let p = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve();
+                }, 1000);
+            });
+            return p;
+        }
+        //使用 promise,表现为异步代码
+        pro()
+            //因为 p 里面定义 settimeout1000,所以box 一秒后开始动画
+            .then(
+                () => {
+                    console.log("box");
+                    obox.style.marginTop = "100px";
+                    obox.style.width = "80%";
+                    obox.style.borderRadius = "20px";
+                    obox.style.boxShadow = "0 0 50px black";
+                    obox.style.background = "lightgreen";
+                    return pro();
+                }
+            )
+            .then(
+                () => {
+                    console.log("box1");
+                    obox1.style.transform = "translateX(220px)";
+                    obox1.style.width = "100px";
+                    obox1.style.height = "100px";
+                    obox1.style.borderRadius = "50%";
+                    obox1.style.boxShadow = "0 0 20px black";
+                    obox1.style.background = "gray";
+                    return pro();
+                }
+            )
+            .then(
+                () => {
+                    console.log("box2");
+                    obox2.style.transform = "translateY(100px)";
+                    obox2.style.width = "80%";
+                    obox2.style.borderRadius = "20px";
+                    obox2.style.boxShadow = "0 0 80px black";
+                    obox2.style.background = "yellow";
+                }
+            );
+
+        //直接无限嵌套方法,同步代码
+        // setTimeout(() => {
+        //     console.log("box");
+        //     obox.style.marginTop = "200px";
+        //     obox.style.width = "80%";
+        //     obox.style.borderRadius = "20px";
+        //     obox.style.boxShadow = "0 0 50px black";
+        //     obox.style.background = "lightgreen";
+        //     setTimeout(() => {
+        //         console.log("box1");
+        //         obox1.style.transform = "translateX(420px)";
+        //         obox1.style.width = "100px";
+        //         obox1.style.height = "100px";
+        //         obox1.style.borderRadius = "50%";
+        //         obox1.style.boxShadow = "0 0 20px black";
+        //         obox1.style.background = "gray";
+        //         setTimeout(() => {
+        //             console.log("box2");
+        //             obox2.style.transform = "translateY(100px)";
+        //             obox2.style.width = "80%";
+        //             obox2.style.borderRadius = "20px";
+        //             obox2.style.boxShadow = "0 0 80px black";
+        //             obox2.style.background = "yellow";
+        //         }, 1000);
+        //     },1000)
+        // },1000)
+    </script>
+</body>
+
+</html>

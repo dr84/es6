@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+</head>
+<button id="btn">获取数据</button>
+<p id="result"></p>
+
+<body>
+    <script>
+        let obtn = document.getElementById("btn");
+        let oresult = document.getElementById("result");
+        obtn.onclick = () => {
+
+            asyncdata().then(
+                (data) => {
+                    oresult.innerHTML = data;
+                },
+                (data) => {
+                    oresult.innerHTML = data;
+                })
+        };
+
+        function asyncdata() {
+            let num = Math.floor(Math.random() * 20);
+            let p = new Promise((resolve, reject) => {
+                if (num > 10) {
+                    resolve(num + "大于10");
+                } else {
+                    reject(num + "小于10");
+                }
+            })
+            return p;
+        }
+
+        // function async1() {
+        //     let promise = new Promise((resolve, reject) => {
+        //         //异步代码,模拟加载图片
+        //         setTimeout(() => {
+        //             console.log("1--图片加载成功");
+        //             resolve();
+        //         }, 1000);
+        //     });
+        //     //返回函数
+        //     return promise;
+        // };
+
+        // function async2() {
+        //     let promise = new Promise((resolve, reject) => {
+        //         //异步代码,模拟加载图片
+        //         setTimeout(() => {
+        //             console.log("2--模拟请求商品信息成功");
+        //             resolve();
+        //         }, 3000);
+        //     });
+        //     //返回函数
+        //     return promise;
+        // };
+
+        // function async3() {
+        //     let promise = new Promise((resolve, reject) => {
+        //         //异步代码,模拟加载图片
+        //         setTimeout(() => {
+        //             console.log("3--模拟查询用户信息成功");
+        //             resolve();
+        //         }, 2000);
+        //     });
+        //     //返回函数
+        //     return promise;
+        // };
+        // async1().then(() => {
+        //     console.log("图片就绪");
+        //     return async2();
+        // }).then(() => {
+        //     console.log("商品就绪");
+        //     return async3().then(() => {
+        //         console.log("用户可以登录了");
+        //     });
+        // });
+    </script>
+</body>
+
+</html>
